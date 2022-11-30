@@ -1,4 +1,4 @@
-package cn.jailedbird.barutils
+package cn.jailedbird.edgeutils
 
 import org.junit.Test
 

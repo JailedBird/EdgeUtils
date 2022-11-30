@@ -1,4 +1,4 @@
-package cn.jailedbird.barutils
+package cn.jailedbird.edgeutils
 
 import android.view.View
 import android.view.ViewGroup

@@ -19,8 +19,8 @@ package com.example.android.navigationedgesample
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import cn.jailedbird.barutils.EdgeUtils
-import cn.jailedbird.barutils.marginBottomSystemWindowInsets
+import cn.jailedbird.edgeutils.EdgeUtils
+import cn.jailedbird.edgeutils.marginBottomSystemWindowInsets
 
 /**
  * An activity that inflates a layout that has a NavHostFragment.

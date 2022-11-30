@@ -6,14 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import cn.jailedbird.barutils.marginBottomImeSystemWindowInsets
-import cn.jailedbird.barutils.paddingTopSystemWindowInsets
+import cn.jailedbird.edgeutils.marginBottomImeSystemWindowInsets
+import cn.jailedbird.edgeutils.paddingTopSystemWindowInsets
 import com.gyf.immersionbar.sample.R
 import com.gyf.immersionbar.sample.databinding.ActivityLoginBinding
-import cn.jailedbird.barutils.EdgeUtils.edgeSetNavigationBarColor
-import cn.jailedbird.barutils.EdgeUtils.edgeSetNavigationBarColorInt
-import cn.jailedbird.barutils.EdgeUtils.edgeSetNavigationBarLight
-import cn.jailedbird.barutils.paddingBottomImeSystemWindowInsets
+import cn.jailedbird.edgeutils.EdgeUtils.edgeSetNavigationBarColor
+import cn.jailedbird.edgeutils.EdgeUtils.edgeSetNavigationBarColorInt
+import cn.jailedbird.edgeutils.EdgeUtils.edgeSetNavigationBarLight
+import cn.jailedbird.edgeutils.paddingBottomImeSystemWindowInsets
 
 class LoginActivity : BaseViewBindingActivity<ActivityLoginBinding>() {
     override fun getLayoutId(): Int {

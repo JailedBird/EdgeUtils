@@ -1,8 +1,8 @@
 package com.gyf.immersionbar.sample.activity
 
 import android.view.LayoutInflater
-import cn.jailedbird.barutils.EdgeUtils
-import cn.jailedbird.barutils.paddingTopSystemWindowInsets
+import cn.jailedbird.edgeutils.EdgeUtils
+import cn.jailedbird.edgeutils.paddingTopSystemWindowInsets
 import com.gyf.immersionbar.sample.R
 import com.gyf.immersionbar.sample.databinding.ActivityShapeBinding
 

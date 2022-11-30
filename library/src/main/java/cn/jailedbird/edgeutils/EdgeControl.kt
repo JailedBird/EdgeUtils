@@ -1,6 +1,6 @@
 @file:Suppress("MemberVisibilityCanBePrivate")
 
-package cn.jailedbird.barutils
+package cn.jailedbird.edgeutils
 
 import android.view.Window
 import android.widget.Toast

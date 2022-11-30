@@ -6,9 +6,9 @@ import android.view.View
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsAnimationCompat
 import androidx.core.view.WindowInsetsCompat
-import cn.jailedbird.barutils.EdgeIme
-import cn.jailedbird.barutils.TranslateDeferringInsetsAnimationCallback
-import cn.jailedbird.barutils.paddingTopSystemWindowInsets
+import cn.jailedbird.edgeutils.EdgeIme
+import cn.jailedbird.edgeutils.TranslateDeferringInsetsAnimationCallback
+import cn.jailedbird.edgeutils.paddingTopSystemWindowInsets
 import com.blankj.utilcode.util.ToastUtils
 import com.gyf.immersionbar.sample.R
 import com.gyf.immersionbar.sample.databinding.ActivityWechatBinding

@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewbinding.ViewBinding
 import com.gyf.immersionbar.sample.AppManager
-import cn.jailedbird.barutils.EdgeUtils.edgeToEdge
+import cn.jailedbird.edgeutils.EdgeUtils.edgeToEdge
 
 abstract class BaseViewBindingActivity<T : ViewBinding> : AppCompatActivity() {
     private var _binding: T? = null

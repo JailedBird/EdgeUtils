@@ -2,8 +2,8 @@ package com.gyf.immersionbar.sample.activity
 
 import android.os.Bundle
 import android.view.LayoutInflater
-import cn.jailedbird.barutils.EdgeUtils
-import cn.jailedbird.barutils.paddingTopSystemWindowInsets
+import cn.jailedbird.edgeutils.EdgeUtils
+import cn.jailedbird.edgeutils.paddingTopSystemWindowInsets
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.gyf.immersionbar.sample.R

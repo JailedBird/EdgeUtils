@@ -7,8 +7,8 @@ import com.google.android.material.tabs.TabLayout
 import com.gyf.immersionbar.sample.R
 import com.gyf.immersionbar.sample.adapter.TabAdapter
 import com.gyf.immersionbar.sample.databinding.ActivityTabLayoutBinding
-import cn.jailedbird.barutils.EdgeUtils
-import cn.jailedbird.barutils.heightToTopSystemWindowInsets
+import cn.jailedbird.edgeutils.EdgeUtils
+import cn.jailedbird.edgeutils.heightToTopSystemWindowInsets
 
 class TabLayoutActivity : BaseViewBindingActivity<ActivityTabLayoutBinding>() {
     private var mData: MutableList<String>? = null

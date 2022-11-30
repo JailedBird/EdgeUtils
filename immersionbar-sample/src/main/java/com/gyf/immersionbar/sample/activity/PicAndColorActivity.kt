@@ -5,8 +5,8 @@ import android.view.LayoutInflater
 import android.widget.SeekBar
 import android.widget.SeekBar.OnSeekBarChangeListener
 import android.widget.Toast
-import cn.jailedbird.barutils.EdgeUtils
-import cn.jailedbird.barutils.paddingTopSystemWindowInsets
+import cn.jailedbird.edgeutils.EdgeUtils
+import cn.jailedbird.edgeutils.paddingTopSystemWindowInsets
 import com.blankj.utilcode.util.ColorUtils
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions

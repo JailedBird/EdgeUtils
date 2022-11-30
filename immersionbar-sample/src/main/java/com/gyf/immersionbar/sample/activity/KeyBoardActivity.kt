@@ -3,8 +3,8 @@ package com.gyf.immersionbar.sample.activity
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.SimpleAdapter
-import cn.jailedbird.barutils.marginBottomImeSystemWindowInsets
-import cn.jailedbird.barutils.paddingTopSystemWindowInsets
+import cn.jailedbird.edgeutils.marginBottomImeSystemWindowInsets
+import cn.jailedbird.edgeutils.paddingTopSystemWindowInsets
 import com.gyf.immersionbar.sample.R
 import com.gyf.immersionbar.sample.databinding.ActivityKeyBoardBinding
 

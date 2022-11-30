@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package cn.jailedbird.barutils
+package cn.jailedbird.edgeutils
 
 import android.view.View
 import androidx.core.view.OnApplyWindowInsetsListener

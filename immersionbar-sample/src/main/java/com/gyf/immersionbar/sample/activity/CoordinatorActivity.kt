@@ -3,8 +3,8 @@ package com.gyf.immersionbar.sample.activity
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
-import cn.jailedbird.barutils.EdgeUtils
-import cn.jailedbird.barutils.marginTopSystemWindowInsets
+import cn.jailedbird.edgeutils.EdgeUtils
+import cn.jailedbird.edgeutils.marginTopSystemWindowInsets
 import com.blankj.utilcode.util.ToastUtils
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions

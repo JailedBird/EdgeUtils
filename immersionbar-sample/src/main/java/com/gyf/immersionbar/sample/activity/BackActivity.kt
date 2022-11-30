@@ -1,8 +1,8 @@
 package com.gyf.immersionbar.sample.activity
 
 import android.os.Bundle
-import cn.jailedbird.barutils.EdgeUtils
-import cn.jailedbird.barutils.paddingTopSystemWindowInsets
+import cn.jailedbird.edgeutils.EdgeUtils
+import cn.jailedbird.edgeutils.paddingTopSystemWindowInsets
 import com.gyf.immersionbar.sample.R
 import me.imid.swipebacklayout.lib.app.SwipeBackActivity
 

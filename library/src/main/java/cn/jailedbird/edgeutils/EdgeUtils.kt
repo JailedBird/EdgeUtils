@@ -1,6 +1,6 @@
 @file:Suppress("MemberVisibilityCanBePrivate")
 
-package cn.jailedbird.barutils
+package cn.jailedbird.edgeutils
 
 import android.app.Activity
 import android.graphics.Color
@@ -12,23 +12,24 @@ import androidx.annotation.ColorRes
 import androidx.core.content.ContextCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsControllerCompat
-import cn.jailedbird.barutils.EdgeControl.edgeHideNavigationBar
-import cn.jailedbird.barutils.EdgeControl.edgeHideStatusBar
-import cn.jailedbird.barutils.EdgeControl.edgeHideSystemBar
-import cn.jailedbird.barutils.EdgeControl.edgeNavigationBarHeight
-import cn.jailedbird.barutils.EdgeControl.edgeNavigationBarHeightIgnoringVisibility
-import cn.jailedbird.barutils.EdgeControl.edgeNavigationBarsIsVisible
-import cn.jailedbird.barutils.EdgeControl.edgeShowNavigationBar
-import cn.jailedbird.barutils.EdgeControl.edgeShowStatusBar
-import cn.jailedbird.barutils.EdgeControl.edgeStatusBarHeight
-import cn.jailedbird.barutils.EdgeControl.edgeStatusBarHeightIgnoringVisibility
-import cn.jailedbird.barutils.EdgeControl.edgeStatusBarsIsVisible
-import cn.jailedbird.barutils.EdgeControl.isAppearanceLightNavigationBars
-import cn.jailedbird.barutils.EdgeControl.isAppearanceLightStatusBars
-import cn.jailedbird.barutils.EdgeControl.setNavigationBarLight
-import cn.jailedbird.barutils.EdgeControl.setStatusBarLight
-import cn.jailedbird.barutils.EdgeControl.setSystemBarLight
-import cn.jailedbird.barutils.EdgeControl.showSystemBar
+import cn.jailedbird.edgeutils.EdgeControl
+import cn.jailedbird.edgeutils.EdgeControl.edgeHideNavigationBar
+import cn.jailedbird.edgeutils.EdgeControl.edgeHideStatusBar
+import cn.jailedbird.edgeutils.EdgeControl.edgeHideSystemBar
+import cn.jailedbird.edgeutils.EdgeControl.edgeNavigationBarHeight
+import cn.jailedbird.edgeutils.EdgeControl.edgeNavigationBarHeightIgnoringVisibility
+import cn.jailedbird.edgeutils.EdgeControl.edgeNavigationBarsIsVisible
+import cn.jailedbird.edgeutils.EdgeControl.edgeShowNavigationBar
+import cn.jailedbird.edgeutils.EdgeControl.edgeShowStatusBar
+import cn.jailedbird.edgeutils.EdgeControl.edgeStatusBarHeight
+import cn.jailedbird.edgeutils.EdgeControl.edgeStatusBarHeightIgnoringVisibility
+import cn.jailedbird.edgeutils.EdgeControl.edgeStatusBarsIsVisible
+import cn.jailedbird.edgeutils.EdgeControl.isAppearanceLightNavigationBars
+import cn.jailedbird.edgeutils.EdgeControl.isAppearanceLightStatusBars
+import cn.jailedbird.edgeutils.EdgeControl.setNavigationBarLight
+import cn.jailedbird.edgeutils.EdgeControl.setStatusBarLight
+import cn.jailedbird.edgeutils.EdgeControl.setSystemBarLight
+import cn.jailedbird.edgeutils.EdgeControl.showSystemBar
 
 
 /**
