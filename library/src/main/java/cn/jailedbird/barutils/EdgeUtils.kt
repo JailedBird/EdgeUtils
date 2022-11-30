@@ -1,0 +1,271 @@
+@file:Suppress("MemberVisibilityCanBePrivate")
+
+package cn.jailedbird.barutils
+
+import android.app.Activity
+import android.graphics.Color
+import android.os.Build
+import android.view.Window
+import android.view.WindowManager
+import androidx.annotation.ColorInt
+import androidx.annotation.ColorRes
+import androidx.core.content.ContextCompat
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsControllerCompat
+import cn.jailedbird.barutils.EdgeControl.edgeHideNavigationBar
+import cn.jailedbird.barutils.EdgeControl.edgeHideStatusBar
+import cn.jailedbird.barutils.EdgeControl.edgeHideSystemBar
+import cn.jailedbird.barutils.EdgeControl.edgeNavigationBarHeight
+import cn.jailedbird.barutils.EdgeControl.edgeNavigationBarHeightIgnoringVisibility
+import cn.jailedbird.barutils.EdgeControl.edgeNavigationBarsIsVisible
+import cn.jailedbird.barutils.EdgeControl.edgeShowNavigationBar
+import cn.jailedbird.barutils.EdgeControl.edgeShowStatusBar
+import cn.jailedbird.barutils.EdgeControl.edgeStatusBarHeight
+import cn.jailedbird.barutils.EdgeControl.edgeStatusBarHeightIgnoringVisibility
+import cn.jailedbird.barutils.EdgeControl.edgeStatusBarsIsVisible
+import cn.jailedbird.barutils.EdgeControl.isAppearanceLightNavigationBars
+import cn.jailedbird.barutils.EdgeControl.isAppearanceLightStatusBars
+import cn.jailedbird.barutils.EdgeControl.setNavigationBarLight
+import cn.jailedbird.barutils.EdgeControl.setStatusBarLight
+import cn.jailedbird.barutils.EdgeControl.setSystemBarLight
+import cn.jailedbird.barutils.EdgeControl.showSystemBar
+
+
+/**
+ * Note: method annotated with @JvmStatic need with [] call
+ *
+ * extension method name start with "edge" can direct call in activity, those has same function
+ * */
+object EdgeUtils {
+    @JvmStatic
+    fun setEdgeToEdge(activity: Activity) = activity.edgeToEdge()
+
+    /**
+     * Make activity implement edge-to-edge layout--> first step
+     * */
+    fun Activity.edgeToEdge() {
+        /**
+         * To fix [hide status bar cause black background] please reference this video
+         * [youtube course](https://www.youtube.com/watch?v=yukwno2GBoI)
+         * or [stackoverflow doc](https://stackoverflow.com/a/72773422/15859474)
+         * */
+        requestWindowFeature(Window.FEATURE_NO_TITLE)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            window.attributes.layoutInDisplayCutoutMode = WindowManager
+                .LayoutParams
+                .LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES
+        }
+        setWindowEdgeToEdge(this.window)
+    }
+
+    /**
+     * Edge to edge as google document: [edge-to-edge]( https://developer.android.com/develop/ui/views/layout/edge-to-edge#lay-out-in-full-screen)
+     * */
+    private fun setWindowEdgeToEdge(window: Window) {
+        WindowCompat.setDecorFitsSystemWindows(window, false)
+        /** using not transparent avoid scrim*/
+        Color.parseColor("#01000000").let { color ->
+            window.statusBarColor = color
+            window.navigationBarColor = color
+        }
+    }
+
+    /** judge has status bar*/
+    @JvmStatic
+    fun hasStatusBar(activity: Activity) = activity.window.edgeStatusBarsIsVisible()
+    fun Activity.edgeHasStatusBar() = window.edgeStatusBarsIsVisible()
+
+    /** get status bar height, please call it with View.post{}, otherwise it perhaps get 0 when
+     * it not attach to view tree*/
+    @JvmStatic
+    fun statusBarHeight(activity: Activity) = activity.window.edgeStatusBarHeight()
+    fun Activity.edgeStatusBarHeight(): Int = window.edgeStatusBarHeight()
+
+    /** show status bar*/
+    @JvmStatic
+    fun showStatusBar(activity: Activity) = activity.window.edgeShowStatusBar()
+    fun Activity.edgeShowStatusBar() = this.window.edgeShowStatusBar()
+
+    /** hide status bar
+     * [behavior] Determines how the bars behave when being hidden by the application. */
+    @JvmStatic
+    fun hideStatusBar(
+        activity: Activity,
+        behavior: Int = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+    ) = activity.window.edgeHideStatusBar(behavior)
+
+    fun Activity.edgeHideStatusBar() = this.window.edgeHideStatusBar()
+
+    /** get status bar height(even if status has hide), please call it with View.post{}, otherwise
+     * it perhaps get 0 when it not attach to view tree*/
+    @JvmStatic
+    fun statusBarHeightIgnoringVisibility(activity: Activity) =
+        activity.window.edgeStatusBarHeightIgnoringVisibility()
+
+    fun Activity.edgeStatusBarHeightIgnoringVisibility() =
+        this.window.edgeStatusBarHeightIgnoringVisibility()
+
+    /** ----------------------------------Navigation bar-------------------------------------------*/
+
+    /** judge has navigation bar*/
+    @JvmStatic
+    fun hasNavigationBar(activity: Activity) = activity.window.edgeNavigationBarsIsVisible()
+    fun Activity.edgeHasNavigationBar() = this.window.edgeNavigationBarsIsVisible()
+
+    /** get navigation height, please call it with View.post{}, otherwise it perhaps get 0 when
+     * it not attach to view tree*/
+    @JvmStatic
+    fun navigationBarHeight(activity: Activity) = activity.window.edgeNavigationBarHeight()
+    fun Activity.edgeNavigationBarHeight(): Int = window.edgeNavigationBarHeight()
+
+    /** get navigation height(even if navigation has hide), please call it with View.post{}, otherwise
+     * it perhaps get 0 when it not attach to view tree*/
+    @JvmStatic
+    fun navigationBarHeightIgnoringVisibility(activity: Activity) =
+        activity.window.edgeNavigationBarHeightIgnoringVisibility()
+
+    fun Activity.edgeNavigationBarHeightIgnoringVisibility() =
+        this.window.edgeNavigationBarHeightIgnoringVisibility()
+
+    /** show navigation bar*/
+    @JvmStatic
+    fun showNavigationBar(activity: Activity) = activity.window.edgeShowNavigationBar()
+    fun Activity.edgeShowNavigationBar() = this.window.edgeShowNavigationBar()
+
+    /**
+     * hide navigation bar
+     * [behavior] Determines how the bars behave when being hidden by the application.
+     * */
+    @JvmStatic
+    fun hideNavigationBar(
+        activity: Activity,
+        behavior: Int = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+    ) = activity.window.edgeHideNavigationBar(behavior)
+
+    fun Activity.edgeHideNavigationBar(behavior: Int = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE) =
+        this.window.edgeHideNavigationBar(behavior)
+
+    /** ----------------------------------System bar-------------------------------------------*/
+    /**
+     * hide system bar
+     *
+     * [behavior] Determines how the bars behave when being hidden by the application.
+     * */
+    @JvmStatic
+    fun hideSystemBar(
+        activity: Activity,
+        behavior: Int = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+    ) = activity.window.edgeHideSystemBar(behavior)
+
+    fun Activity.edgeHideSystemBar(behavior: Int = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE) =
+        this.window.edgeHideSystemBar(behavior)
+
+    /** show system bar*/
+    @JvmStatic
+    fun showSystemBar(activity: Activity) =
+        activity.window.showSystemBar()
+
+    fun Activity.edgeShowSystemBar() = this.window.showSystemBar()
+
+
+    /** Color Status bar*/
+    @JvmStatic
+    fun setStatusBarColorInt(activity: Activity, @ColorInt color: Int) =
+        activity.window.edgeSetStatusBarColor(color)
+
+    @JvmStatic
+    fun setStatusBarColor(activity: Activity, @ColorRes color: Int) =
+        activity.window.edgeSetStatusBarColor(ContextCompat.getColor(activity, color))
+
+    fun Activity.edgeSetStatusBarColor(@ColorRes color: Int) =
+        this.window.edgeSetStatusBarColor(ContextCompat.getColor(this, color))
+
+    fun Activity.edgeSetStatusBarColorInt(@ColorInt colorInt: Int) =
+        this.window.edgeSetStatusBarColor(colorInt)
+
+    private fun Window.edgeSetStatusBarColor(@ColorInt colorInt: Int) {
+        this.statusBarColor = colorInt
+    }
+
+    /** Color Navigation bar*/
+    @JvmStatic
+    fun setNavigationBarColorInt(activity: Activity, @ColorInt color: Int) =
+        activity.window.edgeSetNavigationBarColor(color)
+
+    @JvmStatic
+    fun setNavigationBarColor(activity: Activity, @ColorRes color: Int) =
+        activity.window.edgeSetNavigationBarColor(ContextCompat.getColor(activity, color))
+
+    fun Activity.edgeSetNavigationBarColor(@ColorRes color: Int) =
+        this.window.edgeSetNavigationBarColor(ContextCompat.getColor(this, color))
+
+    fun Activity.edgeSetNavigationBarColorInt(@ColorInt colorInt: Int) =
+        this.window.edgeSetNavigationBarColor(colorInt)
+
+    private fun Window.edgeSetNavigationBarColor(@ColorInt colorInt: Int) {
+        this.navigationBarColor = colorInt
+    }
+
+    /** Color System bar*/
+    @JvmStatic
+    fun setSystemBarColorInt(activity: Activity, @ColorInt color: Int) =
+        activity.window.edgeSetSystemBarColor(color)
+
+    @JvmStatic
+    fun setSystemBarColor(activity: Activity, @ColorRes color: Int) =
+        activity.window.edgeSetSystemBarColor(ContextCompat.getColor(activity, color))
+
+    fun Activity.edgeSetSystemBarColor(@ColorRes color: Int) =
+        this.window.edgeSetSystemBarColor(ContextCompat.getColor(this, color))
+
+    fun Activity.edgeSetSystemBarColorInt(@ColorInt colorInt: Int) =
+        this.window.edgeSetSystemBarColor(colorInt)
+
+    private fun Window.edgeSetSystemBarColor(@ColorInt colorInt: Int) {
+        this.statusBarColor = colorInt
+        this.navigationBarColor = colorInt
+    }
+
+
+    /** System bar front color*/
+    @JvmStatic
+    fun setSystemBarLight(activity: Activity, isLight: Boolean) =
+        setSystemBarLight(activity.window, isLight)
+
+    fun Activity.edgeSetSystemBarLight(isLight: Boolean) =
+        setSystemBarLight(this.window, isLight)
+
+    /** Navigation bar front color*/
+    @JvmStatic
+    fun setNavigationBarLight(activity: Activity, isLight: Boolean) =
+        setNavigationBarLight(activity.window, isLight)
+
+    fun Activity.edgeSetNavigationBarLight(isLight: Boolean) =
+        setNavigationBarLight(window, isLight)
+
+    /** Status bar front color*/
+    @JvmStatic
+    fun setStatusBarLight(activity: Activity, isLight: Boolean) =
+        EdgeControl.setStatusBarLight(activity.window, isLight)
+
+    fun Activity.edgeSetStatusBarLight(isLight: Boolean) =
+        setStatusBarLight(this.window, isLight)
+
+    /** judge is Status bar is light*/
+    @JvmStatic
+    fun isStatusBarLight(activity: Activity) =
+        isAppearanceLightStatusBars(activity.window)
+
+    fun Activity.edgeIsStatusBarLight() =
+        isAppearanceLightStatusBars(this.window)
+
+    /** judge is Navigation bar is light*/
+    @JvmStatic
+    fun isNavigationBarLight(activity: Activity) =
+        isAppearanceLightNavigationBars(activity.window)
+
+    fun Activity.edgeIsNavigationBarLight() =
+        isAppearanceLightNavigationBars(this.window)
+
+}
+

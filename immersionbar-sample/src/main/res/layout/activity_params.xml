@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mRoot"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.gyf.immersionbar.sample.activity.ParamsActivity"
+    tools:ignore="HardcodedText">
+
+    <FrameLayout
+        android:id="@+id/mEdgeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/btn13">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/mToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/btn13"
+            app:title="系统一些参数信息"
+            app:titleTextColor="@android:color/white" />
+    </FrameLayout>
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/mTvHasStatus"
+                android:layout_width="match_parent"
+                android:layout_height="46dp"
+                android:gravity="center"
+                android:text="是否有StatusBar？"
+                android:textColor="@android:color/black" />
+
+            <TextView
+                android:id="@+id/mTvStatus"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:minHeight="50dp"
+                android:text="StatusBar Height(Api不可靠, 加延时(View.post)才能获取否则为0):"
+                android:textColor="@android:color/black" />
+
+            <TextView
+                android:id="@+id/mTvStatusHide"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:minHeight="50dp"
+                android:text="StatusBar Height(不管是否隐藏)(Api不可靠, 加延时(View.post)才能获取否则为0):"
+                android:textColor="@android:color/black" />
+
+            <TextView
+                android:id="@+id/mTvHasNav"
+                android:layout_width="match_parent"
+                android:layout_height="46dp"
+                android:gravity="center"
+                android:text="是否有NavigationBar？"
+                android:textColor="@android:color/black" />
+
+            <TextView
+                android:id="@+id/mTvNav"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:minHeight="50dp"
+                android:text="NavigationBar Height:(Api不可靠, 加延时(View.post)才能获取否则为0)"
+                android:textColor="@android:color/black" />
+
+            <TextView
+                android:id="@+id/mTvNavHide"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:minHeight="50dp"
+                android:text="NavigationBar Height(不管是否隐藏):(Api不可靠, 加延时(View.post)才能获取否则为0)"
+                android:textColor="@android:color/black" />
+
+
+            <TextView
+                android:id="@+id/mTvInsets"
+                android:layout_width="match_parent"
+                android:layout_height="46dp"
+                android:gravity="center"
+                android:text="WindowInsetTop："
+                android:textColor="@android:color/black" />
+
+            <Button
+                android:id="@+id/mTvStatusDark"
+                android:layout_width="wrap_content"
+                android:layout_height="46dp"
+                android:layout_marginBottom="20dp"
+                android:background="@color/btn13"
+                android:gravity="center"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:text="点击尝试状态栏前景色变色"
+                android:textColor="@android:color/white" />
+
+            <Button
+                android:id="@+id/mTvNavigationDark"
+                android:layout_width="wrap_content"
+                android:layout_height="46dp"
+                android:layout_marginBottom="20dp"
+                android:background="@color/btn13"
+                android:gravity="center"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:text="点击尝试导航栏前景色变色"
+                android:textColor="@android:color/white" />
+
+            <Button
+                android:id="@+id/mBtnStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="46dp"
+                android:layout_marginBottom="20dp"
+                android:background="@color/btn13"
+                android:gravity="center"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:text="使用静态方法动态显示隐藏状态栏"
+                android:textColor="@android:color/white" />
+
+            <Button
+                android:id="@+id/mBtnNav"
+                android:layout_width="wrap_content"
+                android:layout_height="46dp"
+                android:layout_marginBottom="20dp"
+                android:background="@color/btn13"
+                android:gravity="center"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:text="使用静态方法动态显示隐藏导航栏"
+                android:textColor="@android:color/white" />
+
+            <Button
+                android:id="@+id/mBtnSystemBar"
+                android:layout_width="wrap_content"
+                android:layout_height="46dp"
+                android:layout_marginBottom="20dp"
+                android:background="@color/btn13"
+                android:gravity="center"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:text="使用静态方法动态显示隐藏系统栏"
+                android:textColor="@android:color/white" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:background="@color/btn13"
+                android:gravity="center"
+                android:paddingVertical="20dp"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:text="如果是Gesture navigation mode: 条纹是无法变化的, 而是自动根据底色进行变化\n(https://developer.android.com/develop/ui/views/layout/edge-to-edge#change-color)"
+                android:textColor="@android:color/white" />
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="200dp"
+                android:layout_marginBottom="20dp"
+                android:background="@color/btn13"
+                android:gravity="center"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp" />
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="200dp"
+                android:layout_marginBottom="20dp"
+                android:background="#0000FF"
+                android:gravity="center"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp" />
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="200dp"
+                android:layout_marginBottom="20dp"
+                android:background="#FF0000"
+                android:gravity="center"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp" />
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="200dp"
+                android:layout_marginBottom="20dp"
+                android:background="#00FF00"
+                android:gravity="center"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp" />
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="200dp"
+                android:layout_marginBottom="20dp"
+                android:background="#FFFFFF"
+                android:gravity="center"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp" />
+            <!--bottom line-->
+            <View
+                android:layout_width="200dp"
+                android:layout_height="2dp"
+                android:background="#FF0000" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
