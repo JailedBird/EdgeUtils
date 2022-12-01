@@ -12,7 +12,6 @@ import androidx.annotation.ColorRes
 import androidx.core.content.ContextCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsControllerCompat
-import cn.jailedbird.edgeutils.EdgeControl
 import cn.jailedbird.edgeutils.EdgeControl.edgeHideNavigationBar
 import cn.jailedbird.edgeutils.EdgeControl.edgeHideStatusBar
 import cn.jailedbird.edgeutils.EdgeControl.edgeHideSystemBar
@@ -39,36 +38,42 @@ import cn.jailedbird.edgeutils.EdgeControl.showSystemBar
  * */
 object EdgeUtils {
     @JvmStatic
-    fun setEdgeToEdge(activity: Activity) = activity.edgeToEdge()
+    fun setEdgeToEdge(activity: Activity, withScrim: Boolean = false) =
+        activity.edgeToEdge(withScrim)
 
     /**
      * Make activity implement edge-to-edge layout--> first step
+     *
+     * [withScrim] if true, set background as TRANSPARENT(alpha=0) else TRANSPARENT(alpha=1)
      * */
-    fun Activity.edgeToEdge() {
+    fun Activity.edgeToEdge(withScrim: Boolean = false) {
         /**
          * To fix [hide status bar cause black background] please reference this video
          * [youtube course](https://www.youtube.com/watch?v=yukwno2GBoI)
          * or [stackoverflow doc](https://stackoverflow.com/a/72773422/15859474)
          * */
-        requestWindowFeature(Window.FEATURE_NO_TITLE)
+        /** google doc about cutout: https://developer.android.com/develop/ui/views/layout/display-cutout*/
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
             window.attributes.layoutInDisplayCutoutMode = WindowManager
                 .LayoutParams
                 .LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES
         }
-        setWindowEdgeToEdge(this.window)
+        setWindowEdgeToEdge(this.window, withScrim)
     }
 
     /**
      * Edge to edge as google document: [edge-to-edge]( https://developer.android.com/develop/ui/views/layout/edge-to-edge#lay-out-in-full-screen)
      * */
-    private fun setWindowEdgeToEdge(window: Window) {
+    private fun setWindowEdgeToEdge(window: Window, withScrim: Boolean) {
         WindowCompat.setDecorFitsSystemWindows(window, false)
         /** using not transparent avoid scrim*/
-        Color.parseColor("#01000000").let { color ->
-            window.statusBarColor = color
-            window.navigationBarColor = color
+        val color = if (withScrim) {
+            Color.TRANSPARENT
+        } else {
+            Color.parseColor("#01000000")
         }
+        window.statusBarColor = color
+        window.navigationBarColor = color
     }
 
     /** judge has status bar*/
