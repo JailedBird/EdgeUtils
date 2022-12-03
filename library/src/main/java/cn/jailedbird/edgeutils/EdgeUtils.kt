@@ -38,7 +38,7 @@ import cn.jailedbird.edgeutils.EdgeControl.showSystemBar
  * */
 object EdgeUtils {
     @JvmStatic
-    fun setEdgeToEdge(activity: Activity, withScrim: Boolean = false) =
+    fun setEdgeToEdge(activity: Activity, withScrim: Boolean = true) =
         activity.edgeToEdge(withScrim)
 
     /**
@@ -46,7 +46,7 @@ object EdgeUtils {
      *
      * [withScrim] if true, set background as TRANSPARENT(alpha=0) else TRANSPARENT(alpha=1)
      * */
-    fun Activity.edgeToEdge(withScrim: Boolean = false) {
+    fun Activity.edgeToEdge(withScrim: Boolean = true) {
         /**
          * To fix [hide status bar cause black background] please reference this video
          * [youtube course](https://www.youtube.com/watch?v=yukwno2GBoI)

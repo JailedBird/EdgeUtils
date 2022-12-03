@@ -141,7 +141,7 @@ internal object EdgeControl {
         val res = ViewCompat.getRootWindowInsets(this.decorView)
         if (res == null) {
             Toast.makeText(
-                context,
+                context.applicationContext,
                 "ViewCompat.getRootWindowInsets(this.decorView) is null, please use View.post{ called_api } to ensure View has Attached",
                 Toast.LENGTH_SHORT
             ).show()
