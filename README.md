@@ -1,5 +1,6 @@
 # EdgeUtils
 EdgeUtils is an immersive scafodd base on androidx.core's WindowInsets
+[![](https://jitpack.io/v/JailedBird/EdgeUtils.svg)](https://jitpack.io/#JailedBird/EdgeUtils)
 
 ## 前言介绍
 
