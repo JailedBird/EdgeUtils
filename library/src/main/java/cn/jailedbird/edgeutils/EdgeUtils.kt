@@ -1,4 +1,4 @@
-@file:Suppress("MemberVisibilityCanBePrivate")
+@file:Suppress("MemberVisibilityCanBePrivate", "unused")
 
 package cn.jailedbird.edgeutils
 
@@ -11,6 +11,7 @@ import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes
 import androidx.core.content.ContextCompat
 import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import cn.jailedbird.edgeutils.EdgeControl.edgeHideNavigationBar
 import cn.jailedbird.edgeutils.EdgeControl.edgeHideStatusBar
@@ -23,6 +24,7 @@ import cn.jailedbird.edgeutils.EdgeControl.edgeShowStatusBar
 import cn.jailedbird.edgeutils.EdgeControl.edgeStatusBarHeight
 import cn.jailedbird.edgeutils.EdgeControl.edgeStatusBarHeightIgnoringVisibility
 import cn.jailedbird.edgeutils.EdgeControl.edgeStatusBarsIsVisible
+import cn.jailedbird.edgeutils.EdgeControl.getSuspendCustomRootWindowInsets
 import cn.jailedbird.edgeutils.EdgeControl.isAppearanceLightNavigationBars
 import cn.jailedbird.edgeutils.EdgeControl.isAppearanceLightStatusBars
 import cn.jailedbird.edgeutils.EdgeControl.setNavigationBarLight
@@ -76,16 +78,21 @@ object EdgeUtils {
         window.navigationBarColor = color
     }
 
+    @JvmStatic
+    suspend fun windowInsetCompat(activity: Activity) = activity.window.edgeStatusBarsIsVisible()
+    suspend fun Activity.edgeWindowInsetCompat(): WindowInsetsCompat? =
+        this.window.getSuspendCustomRootWindowInsets()
+
     /** judge has status bar*/
     @JvmStatic
-    fun hasStatusBar(activity: Activity) = activity.window.edgeStatusBarsIsVisible()
-    fun Activity.edgeHasStatusBar() = window.edgeStatusBarsIsVisible()
+    suspend fun hasStatusBar(activity: Activity) = activity.window.edgeStatusBarsIsVisible()
+    suspend fun Activity.edgeHasStatusBar() = window.edgeStatusBarsIsVisible()
 
     /** get status bar height, please call it with View.post{}, otherwise it perhaps get 0 when
      * it not attach to view tree*/
     @JvmStatic
-    fun statusBarHeight(activity: Activity) = activity.window.edgeStatusBarHeight()
-    fun Activity.edgeStatusBarHeight(): Int = window.edgeStatusBarHeight()
+    suspend fun statusBarHeight(activity: Activity) = activity.window.edgeStatusBarHeight()
+    suspend fun Activity.edgeStatusBarHeight(): Int = window.edgeStatusBarHeight()
 
     /** show status bar*/
     @JvmStatic
@@ -105,32 +112,32 @@ object EdgeUtils {
     /** get status bar height(even if status has hide), please call it with View.post{}, otherwise
      * it perhaps get 0 when it not attach to view tree*/
     @JvmStatic
-    fun statusBarHeightIgnoringVisibility(activity: Activity) =
+    suspend fun statusBarHeightIgnoringVisibility(activity: Activity) =
         activity.window.edgeStatusBarHeightIgnoringVisibility()
 
-    fun Activity.edgeStatusBarHeightIgnoringVisibility() =
+    suspend fun Activity.edgeStatusBarHeightIgnoringVisibility() =
         this.window.edgeStatusBarHeightIgnoringVisibility()
 
     /** ----------------------------------Navigation bar-------------------------------------------*/
 
     /** judge has navigation bar*/
     @JvmStatic
-    fun hasNavigationBar(activity: Activity) = activity.window.edgeNavigationBarsIsVisible()
-    fun Activity.edgeHasNavigationBar() = this.window.edgeNavigationBarsIsVisible()
+    suspend fun hasNavigationBar(activity: Activity) = activity.window.edgeNavigationBarsIsVisible()
+    suspend fun Activity.edgeHasNavigationBar() = this.window.edgeNavigationBarsIsVisible()
 
     /** get navigation height, please call it with View.post{}, otherwise it perhaps get 0 when
      * it not attach to view tree*/
     @JvmStatic
-    fun navigationBarHeight(activity: Activity) = activity.window.edgeNavigationBarHeight()
-    fun Activity.edgeNavigationBarHeight(): Int = window.edgeNavigationBarHeight()
+    suspend fun navigationBarHeight(activity: Activity) = activity.window.edgeNavigationBarHeight()
+    suspend fun Activity.edgeNavigationBarHeight(): Int = window.edgeNavigationBarHeight()
 
     /** get navigation height(even if navigation has hide), please call it with View.post{}, otherwise
      * it perhaps get 0 when it not attach to view tree*/
     @JvmStatic
-    fun navigationBarHeightIgnoringVisibility(activity: Activity) =
+    suspend fun navigationBarHeightIgnoringVisibility(activity: Activity) =
         activity.window.edgeNavigationBarHeightIgnoringVisibility()
 
-    fun Activity.edgeNavigationBarHeightIgnoringVisibility() =
+    suspend fun Activity.edgeNavigationBarHeightIgnoringVisibility() =
         this.window.edgeNavigationBarHeightIgnoringVisibility()
 
     /** show navigation bar*/
@@ -252,7 +259,7 @@ object EdgeUtils {
     /** Status bar front color*/
     @JvmStatic
     fun setStatusBarLight(activity: Activity, isLight: Boolean) =
-        EdgeControl.setStatusBarLight(activity.window, isLight)
+        setStatusBarLight(activity.window, isLight)
 
     fun Activity.edgeSetStatusBarLight(isLight: Boolean) =
         setStatusBarLight(this.window, isLight)

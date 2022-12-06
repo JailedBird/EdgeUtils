@@ -1,13 +1,15 @@
-@file:Suppress("MemberVisibilityCanBePrivate")
+@file:Suppress("MemberVisibilityCanBePrivate", "unused")
 
 package cn.jailedbird.edgeutils
 
+import android.view.View
 import android.view.Window
 import android.widget.Toast
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
+import kotlinx.coroutines.suspendCancellableCoroutine
 
 internal object EdgeControl {
     /** Status bar*/
@@ -18,16 +20,16 @@ internal object EdgeControl {
      * When use it, using View.post{ getCustomRootInset() } to
      * get NonNull WindowInsetsCompat
      */
-    fun Window.edgeStatusBarsIsVisible() =
-        getCustomRootWindowInsets()
+    suspend fun Window.edgeStatusBarsIsVisible() =
+        getSuspendCustomRootWindowInsets()
             ?.isVisible(WindowInsetsCompat.Type.statusBars())
             ?: true
 
-    fun Window.edgeStatusBarHeight() = getCustomRootWindowInsets()
+    suspend fun Window.edgeStatusBarHeight() = getSuspendCustomRootWindowInsets()
         ?.getInsets(WindowInsetsCompat.Type.systemBars())?.top ?: 0
 
-    fun Window.edgeStatusBarHeightIgnoringVisibility(): Int =
-        getCustomRootWindowInsets()
+    suspend fun Window.edgeStatusBarHeightIgnoringVisibility(): Int =
+        getSuspendCustomRootWindowInsets()
             ?.getInsetsIgnoringVisibility(WindowInsetsCompat.Type.systemBars())?.top ?: 0
 
     fun Window.edgeShowStatusBar() =
@@ -46,16 +48,16 @@ internal object EdgeControl {
 
 
     /** Navigation bar*/
-    fun Window.edgeNavigationBarsIsVisible() =
-        getCustomRootWindowInsets()
+    suspend fun Window.edgeNavigationBarsIsVisible() =
+        getSuspendCustomRootWindowInsets()
             ?.isVisible(WindowInsetsCompat.Type.navigationBars())
             ?: true
 
-    fun Window.edgeNavigationBarHeight() = getCustomRootWindowInsets()
+    suspend fun Window.edgeNavigationBarHeight() = getSuspendCustomRootWindowInsets()
         ?.getInsets(WindowInsetsCompat.Type.systemBars())?.bottom ?: 0
 
-    fun Window.edgeNavigationBarHeightIgnoringVisibility(): Int =
-        getCustomRootWindowInsets()
+    suspend fun Window.edgeNavigationBarHeightIgnoringVisibility(): Int =
+        getSuspendCustomRootWindowInsets()
             ?.getInsetsIgnoringVisibility(WindowInsetsCompat.Type.systemBars())?.bottom ?: 0
 
     fun Window.edgeShowNavigationBar() =
@@ -86,12 +88,12 @@ internal object EdgeControl {
     }
 
     /** About ime bar*/
-    fun Window.edgeImeBarIsVisible() =
-        getCustomRootWindowInsets()?.isVisible(WindowInsetsCompat.Type.ime())
+    suspend fun Window.edgeImeBarIsVisible() =
+        getSuspendCustomRootWindowInsets()?.isVisible(WindowInsetsCompat.Type.ime())
             ?: false
 
-    fun Window.edgeImeHeight() =
-        getCustomRootWindowInsets()
+    suspend fun Window.edgeImeHeight() =
+        getSuspendCustomRootWindowInsets()
             ?.getInsets(WindowInsetsCompat.Type.ime())?.bottom ?: 0
 
     fun Window.edgeShowIme() =
@@ -137,6 +139,7 @@ internal object EdgeControl {
      * 1 avoid api change cause extensive modifications
      * 2 hook api do some judge, such as throw exception or toast some developer's tips
      * */
+    @Deprecated("replace with getSuspendCustomRootWindowInsets with coroutine")
     private fun Window.getCustomRootWindowInsets(): WindowInsetsCompat? {
         val res = ViewCompat.getRootWindowInsets(this.decorView)
         if (res == null) {
@@ -147,6 +150,43 @@ internal object EdgeControl {
             ).show()
         }
         return res
+    }
+
+    suspend fun Window.getStatusBarHeightSuspend() =
+        getSuspendCustomRootWindowInsets()?.getInsets(WindowInsetsCompat.Type.systemBars())?.top
+            ?: 0
+
+    suspend fun Window.getSuspendCustomRootWindowInsets(): WindowInsetsCompat? {
+        val view = this.decorView
+        // Fast path: get WindowInsetsCompat directly when view is attach to window
+        if (view.isAttachedToWindow) {
+            return ViewCompat.getRootWindowInsets(this.decorView)
+        }
+        // Slow path: observe View.OnAttachStateChangeListener until view has attached to window
+        return suspendCancellableCoroutine { continuation ->
+            val attachStateChangeListener = object : View.OnAttachStateChangeListener {
+                var attach = false
+                override fun onViewAttachedToWindow(v: View?) {
+                    view.removeOnAttachStateChangeListener(this)
+                    if (!attach) {
+                        attach = true
+                        continuation.resumeWith(
+                            Result.success(ViewCompat.getRootWindowInsets(view))
+                        )
+                    }
+                }
+
+                override fun onViewDetachedFromWindow(v: View?) {
+                    view.removeOnAttachStateChangeListener(this)
+                }
+            }
+
+            view.addOnAttachStateChangeListener(attachStateChangeListener)
+
+            continuation.invokeOnCancellation {
+                view.removeOnAttachStateChangeListener(attachStateChangeListener)
+            }
+        }
     }
 
 }
