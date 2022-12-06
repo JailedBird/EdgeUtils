@@ -142,7 +142,7 @@ internal object EdgeControl {
     @Deprecated("replace with getSuspendCustomRootWindowInsets with coroutine")
     private fun Window.getCustomRootWindowInsets(): WindowInsetsCompat? {
         val res = ViewCompat.getRootWindowInsets(this.decorView)
-        if (res == null) {
+        if (res == null && BuildConfig.DEBUG) {
             Toast.makeText(
                 context.applicationContext,
                 "ViewCompat.getRootWindowInsets(this.decorView) is null, please use View.post{ called_api } to ensure View has Attached",
