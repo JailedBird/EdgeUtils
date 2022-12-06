@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.lifecycleScope
 import cn.jailedbird.edgeutils.EdgeUtils
 import cn.jailedbird.edgeutils.EdgeUtils.edgeHasNavigationBar
 import cn.jailedbird.edgeutils.EdgeUtils.edgeHasStatusBar
@@ -12,6 +13,8 @@ import cn.jailedbird.edgeutils.EdgeUtils.edgeHideNavigationBar
 import cn.jailedbird.edgeutils.EdgeUtils.edgeHideStatusBar
 import cn.jailedbird.edgeutils.EdgeUtils.edgeHideSystemBar
 import cn.jailedbird.edgeutils.EdgeUtils.edgeIsNavigationBarLight
+import cn.jailedbird.edgeutils.EdgeUtils.edgeNavigationBarHeight
+import cn.jailedbird.edgeutils.EdgeUtils.edgeNavigationBarHeightIgnoringVisibility
 import cn.jailedbird.edgeutils.EdgeUtils.edgeSetNavigationBarColor
 import cn.jailedbird.edgeutils.EdgeUtils.edgeSetNavigationBarLight
 import cn.jailedbird.edgeutils.EdgeUtils.edgeShowNavigationBar
@@ -22,6 +25,7 @@ import cn.jailedbird.edgeutils.paddingTopSystemWindowInsets
 import com.blankj.utilcode.util.BarUtils
 import com.gyf.immersionbar.sample.R
 import com.gyf.immersionbar.sample.databinding.ActivityParamsBinding
+import kotlinx.coroutines.launch
 
 class ParamsActivity : BaseViewBindingActivity<ActivityParamsBinding>() {
 
@@ -31,65 +35,44 @@ class ParamsActivity : BaseViewBindingActivity<ActivityParamsBinding>() {
     @SuppressLint("SetTextI18n")
     override fun initView() {
         super.initView()
-        // 状态栏视觉冲突解决
         binding.mEdgeLayout.paddingTopSystemWindowInsets()
         binding.root.paddingBottomSystemWindowInsets()
         edgeSetNavigationBarLight(false)
         edgeSetNavigationBarColor(R.color.btn13)
 
-        // 底部添加margin
-        // binding.root.marginBottomSystemWindowInsets()
-        // 设置状态栏颜色
-        // edgeSetNavigationBarColor(R.color.btn13)
-        initViewAgain()
+        lifecycleScope.launch {
+            if (edgeHasStatusBar() && edgeHasNavigationBar()) {
+                edgeHideSystemBar()
+            } else {
+                edgeShowSystemBar()
+            }
+            initViewAgain()
+        }
     }
 
-    private fun initViewAgain() {
-        binding.mTvHasStatus.post {
-            binding.mTvHasStatus.text = getText(
-                "是否有StatusBar(Api不可靠, 加延时(View.post)才能获取否则为0):" + EdgeUtils.hasStatusBar(this)
+    private suspend fun initViewAgain() {
+        binding.mTvHasStatus.text = getText(
+            "是否有StatusBar(Api不可靠, 加延时(View.post)才能获取否则为0):" + EdgeUtils.hasStatusBar(this@ParamsActivity)
+        )
+        binding.mTvStatus.text = getText(
+            "StatusBar Height(Api不可靠, 加延时(View.post)才能获取否则为0):" + EdgeUtils.statusBarHeight(
+                this@ParamsActivity
             )
-        }
-
-        binding.mTvStatus.post {
-            binding.mTvStatus.text = getText(
-                "StatusBar Height(Api不可靠, 加延时(View.post)才能获取否则为0):" + EdgeUtils.statusBarHeight(
-                    this
-                )
+        )
+        binding.mTvStatusHide.text = getText(
+            "StatusBar Height(不管是否隐藏)(Api不可靠, 加延时(View.post)才能获取否则为0):" + EdgeUtils.statusBarHeightIgnoringVisibility(
+                this@ParamsActivity
             )
-        }
-
-        binding.mTvStatusHide.post {
-            binding.mTvStatusHide.text = getText(
-                "StatusBar Height(不管是否隐藏)(Api不可靠, 加延时(View.post)才能获取否则为0):" + EdgeUtils.statusBarHeightIgnoringVisibility(
-                    this
-                )
-            )
-        }
-
-        binding.mTvHasNav.post {
-            binding.mTvHasNav.text = getText(
-                "是否有NavigationBar(Api不可靠, 加延时(View.post)才能获取否则为0):" + EdgeUtils.hasNavigationBar(
-                    this
-                )
-            )
-        }
-
-        binding.mTvNav.post {
-            binding.mTvNav.text = getText(
-                "NavigationBar Height:(Api不可靠, 加延时(View.post)才能获取否则为0):" + EdgeUtils.navigationBarHeight(
-                    this
-                )
-            )
-        }
-
-        binding.mTvNavHide.post {
-            binding.mTvNavHide.text = getText(
-                "NavigationBar Height(不管是否隐藏):(Api不可靠, 加延时(View.post)才能获取否则为0):" + EdgeUtils.navigationBarHeightIgnoringVisibility(
-                    this
-                )
-            )
-        }
+        )
+        binding.mTvHasNav.text = getText(
+            "是否有NavigationBar(Api不可靠, 加延时(View.post)才能获取否则为0):" + edgeHasNavigationBar()
+        )
+        binding.mTvNav.text = getText(
+            "NavigationBar Height:(Api不可靠, 加延时(View.post)才能获取否则为0):" + edgeNavigationBarHeight()
+        )
+        binding.mTvNavHide.text = getText(
+            "NavigationBar Height(不管是否隐藏):(Api不可靠, 加延时(View.post)才能获取否则为0):" + edgeNavigationBarHeightIgnoringVisibility()
+        )
     }
 
     @SuppressLint("SetTextI18n")
@@ -103,7 +86,6 @@ class ParamsActivity : BaseViewBindingActivity<ActivityParamsBinding>() {
                 )
             windowInsetsCompat
         }
-        /*ImmersionBar(this).barParams*/
         BarUtils.getStatusBarHeight()
         /* 调整状态栏前景色*/
         binding.mTvStatusDark.setOnClickListener {
@@ -112,68 +94,57 @@ class ParamsActivity : BaseViewBindingActivity<ActivityParamsBinding>() {
             } else {
                 EdgeUtils.setStatusBarLight(this, true)
             }
-            initViewAgain()
+            lifecycleScope.launch {
+                initViewAgain()
+            }
         }
         /* 调整导航栏前景色 手势导航模式下无效 导航条会自动变色 形成反差色*/
         binding.mTvNavigationDark.setOnClickListener {
-            /*if (EdgeUtils.isNavigationBarLight(this)) {
-                EdgeUtils.setNavigationBarLight(this, false)
-            } else {
-                EdgeUtils.setNavigationBarLight(this, true)
-            }*/
             // 在全面屏模式系，存在2种变体 存在导航条 和 不存在导航条
             if (edgeIsNavigationBarLight()) {
                 edgeSetNavigationBarLight(false)
             } else {
                 edgeSetNavigationBarLight(true)
             }
-            initViewAgain()
+            lifecycleScope.launch {
+                initViewAgain()
+            }
         }
         /* 显示隐藏状态栏*/
         binding.mBtnStatus.setOnClickListener {
-            /*if (EdgeUtils.hasStatusBar(this@ParamsActivity)) {
-                EdgeUtils.hideStatusBar(
-                    this@ParamsActivity,
-                    WindowInsetsControllerCompat.BEHAVIOR_SHOW_BARS_BY_SWIPE
-                )
-            } else {
-                EdgeUtils.showStatusBar(this@ParamsActivity)
-            }*/
-            if (edgeHasStatusBar()) {
-                edgeHideStatusBar()
-            } else {
-                edgeShowStatusBar()
+            lifecycleScope.launch {
+                if (edgeHasStatusBar()) {
+                    edgeHideStatusBar()
+                } else {
+                    edgeShowStatusBar()
+                }
+                initViewAgain()
             }
-            initViewAgain()
+
         }
         /* 显示隐藏导航栏*/
         binding.mBtnNav.setOnClickListener {
-            /*if (EdgeUtils.hasNavigationBar(this)) {
-                EdgeUtils.hideNavigationBar(this@ParamsActivity)
-            } else {
-                EdgeUtils.showNavigationBar(this@ParamsActivity)
-            }*/
-            if (edgeHasNavigationBar()) {
-                edgeHideNavigationBar()
-            } else {
-                edgeShowNavigationBar()
+            lifecycleScope.launch {
+                if (edgeHasNavigationBar()) {
+                    edgeHideNavigationBar()
+                } else {
+                    edgeShowNavigationBar()
+                }
+                initViewAgain()
             }
-            initViewAgain()
         }
 
         /* 显示隐藏系统栏*/
         binding.mBtnSystemBar.setOnClickListener {
-            /*if (EdgeUtils.hasStatusBar(this) && EdgeUtils.hasNavigationBar(this)) {
-                EdgeUtils.hideSystemBar(this@ParamsActivity)
-            } else {
-                EdgeUtils.showSystemBar(this@ParamsActivity)
-            }*/
-            if (edgeHasStatusBar() && edgeHasNavigationBar()) {
-                edgeHideSystemBar()
-            } else {
-                edgeShowSystemBar()
+
+            lifecycleScope.launch {
+                if (edgeHasStatusBar() && edgeHasNavigationBar()) {
+                    edgeHideSystemBar()
+                } else {
+                    edgeShowSystemBar()
+                }
+                initViewAgain()
             }
-            initViewAgain()
         }
 
     }

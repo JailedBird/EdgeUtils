@@ -5,7 +5,11 @@ import android.view.LayoutInflater
 import android.widget.SeekBar
 import android.widget.SeekBar.OnSeekBarChangeListener
 import android.widget.Toast
+import androidx.lifecycle.lifecycleScope
 import cn.jailedbird.edgeutils.EdgeUtils
+import cn.jailedbird.edgeutils.EdgeUtils.edgeHasStatusBar
+import cn.jailedbird.edgeutils.EdgeUtils.edgeHideStatusBar
+import cn.jailedbird.edgeutils.EdgeUtils.edgeShowStatusBar
 import cn.jailedbird.edgeutils.paddingTopSystemWindowInsets
 import com.blankj.utilcode.util.ColorUtils
 import com.bumptech.glide.Glide
@@ -13,6 +17,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.gyf.immersionbar.sample.R
 import com.gyf.immersionbar.sample.databinding.ActivityPicColorBinding
 import com.gyf.immersionbar.sample.utils.Utils
+import kotlinx.coroutines.launch
 
 class PicAndColorActivity : BaseViewBindingActivity<ActivityPicColorBinding>(),
     OnSeekBarChangeListener {
@@ -41,13 +46,14 @@ class PicAndColorActivity : BaseViewBindingActivity<ActivityPicColorBinding>(),
         }
 
         binding.btnNavigationColor.setOnClickListener {
-            it.post {
-                if (EdgeUtils.hasNavigationBar(this)) {
-                    EdgeUtils.setNavigationBarColor(this, R.color.colorAccent)
+            lifecycleScope.launch {
+                if (EdgeUtils.hasNavigationBar(this@PicAndColorActivity)) {
+                    EdgeUtils.setNavigationBarColor(this@PicAndColorActivity, R.color.colorAccent)
                 } else {
-                    Toast.makeText(this, "当前设备没有导航栏", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@PicAndColorActivity, "当前设备没有导航栏", Toast.LENGTH_SHORT).show()
                 }
             }
+
         }
 
         binding.btnColor.setOnClickListener {
@@ -58,22 +64,17 @@ class PicAndColorActivity : BaseViewBindingActivity<ActivityPicColorBinding>(),
         }
 
         binding.btnStatusControl.setOnClickListener {
-            if (EdgeUtils.hasStatusBar(this)) {
-                EdgeUtils.hideStatusBar(this)
-            } else {
-                EdgeUtils.showStatusBar(this)
+            lifecycleScope.launch {
+                if (edgeHasStatusBar()) {
+                    edgeHideStatusBar()
+                } else {
+                    edgeShowStatusBar()
+                }
             }
         }
     }
 
     override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
-        val alpha = progress.toFloat() / 100
-        /*ImmersionBar.with(this)
-            .statusBarColorTransform(R.color.orange)
-            .navigationBarColorTransform(R.color.tans)
-            .addViewSupportTransformColor(binding.toolbar)
-            .barAlpha(alpha)
-            .init()*/
         binding.toolbarWrapper.background = ColorDrawable(ColorUtils.getRandomColor(true))
     }
 

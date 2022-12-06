@@ -89,4 +89,6 @@ dependencies {
     implementation project(":library")
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'com.blankj:utilcodex:1.31.1'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.0'
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.4.0")
 }
