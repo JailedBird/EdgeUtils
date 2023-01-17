@@ -3,10 +3,12 @@
 package cn.jailedbird.edgeutils
 
 import android.app.Activity
+import android.app.Dialog
 import android.graphics.Color
 import android.os.Build
 import android.view.Window
 import android.view.WindowManager
+import android.widget.Toast
 import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes
 import androidx.core.content.ContextCompat
@@ -43,6 +45,9 @@ object EdgeUtils {
     fun setEdgeToEdge(activity: Activity, withScrim: Boolean = true) =
         activity.edgeToEdge(withScrim)
 
+    @JvmStatic
+    fun setEdgeToEdge(dialog: Dialog, withScrim: Boolean = true) = dialog.edgeToEdge(withScrim)
+
     /**
      * Make activity implement edge-to-edge layout--> first step
      *
@@ -56,15 +61,30 @@ object EdgeUtils {
          * */
         /** google doc about cutout: https://developer.android.com/develop/ui/views/layout/display-cutout*/
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-            window.attributes.layoutInDisplayCutoutMode = WindowManager
-                .LayoutParams
-                .LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES
+            window.attributes.layoutInDisplayCutoutMode =
+                WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES
         }
         setWindowEdgeToEdge(this.window, withScrim)
     }
 
+    fun Dialog.edgeToEdge(withScrim: Boolean = true) {
+        val window = this.window
+        if (window != null) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                window.attributes.layoutInDisplayCutoutMode =
+                    WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES
+            }
+            setWindowEdgeToEdge(window, withScrim)
+        } else {
+            Toast.makeText(
+                this.context, "Edge: ensure dialog window is not null", Toast.LENGTH_SHORT
+            ).show()
+        }
+
+    }
+
     /**
-     * Edge to edge as google document: [edge-to-edge]( https://developer.android.com/develop/ui/views/layout/edge-to-edge#lay-out-in-full-screen)
+     * Edge to edge as google document: [edge-to-edge](https://developer.android.com/develop/ui/views/layout/edge-to-edge#lay-out-in-full-screen)
      * */
     private fun setWindowEdgeToEdge(window: Window, withScrim: Boolean) {
         WindowCompat.setDecorFitsSystemWindows(window, false)
@@ -175,8 +195,7 @@ object EdgeUtils {
 
     /** show system bar*/
     @JvmStatic
-    fun showSystemBar(activity: Activity) =
-        activity.window.showSystemBar()
+    fun showSystemBar(activity: Activity) = activity.window.showSystemBar()
 
     fun Activity.edgeShowSystemBar() = this.window.showSystemBar()
 
@@ -187,14 +206,28 @@ object EdgeUtils {
         activity.window.edgeSetStatusBarColor(color)
 
     @JvmStatic
+    fun setStatusBarColorInt(dialog: Dialog, @ColorInt color: Int) =
+        dialog.window?.edgeSetStatusBarColor(color)
+
+    @JvmStatic
     fun setStatusBarColor(activity: Activity, @ColorRes color: Int) =
         activity.window.edgeSetStatusBarColor(ContextCompat.getColor(activity, color))
+
+    @JvmStatic
+    fun setStatusBarColor(dialog: Dialog, @ColorRes color: Int) =
+        dialog.window?.edgeSetStatusBarColor(ContextCompat.getColor(dialog.context, color))
 
     fun Activity.edgeSetStatusBarColor(@ColorRes color: Int) =
         this.window.edgeSetStatusBarColor(ContextCompat.getColor(this, color))
 
+    fun Dialog.edgeSetStatusBarColor(@ColorRes color: Int) =
+        this.window?.edgeSetStatusBarColor(ContextCompat.getColor(this.context, color))
+
     fun Activity.edgeSetStatusBarColorInt(@ColorInt colorInt: Int) =
         this.window.edgeSetStatusBarColor(colorInt)
+
+    fun Dialog.edgeSetStatusBarColorInt(@ColorInt colorInt: Int) =
+        this.window?.edgeSetStatusBarColor(colorInt)
 
     private fun Window.edgeSetStatusBarColor(@ColorInt colorInt: Int) {
         this.statusBarColor = colorInt
@@ -206,14 +239,28 @@ object EdgeUtils {
         activity.window.edgeSetNavigationBarColor(color)
 
     @JvmStatic
+    fun setNavigationBarColorInt(dialog: Dialog, @ColorInt color: Int) =
+        dialog.window?.edgeSetNavigationBarColor(color)
+
+    @JvmStatic
     fun setNavigationBarColor(activity: Activity, @ColorRes color: Int) =
         activity.window.edgeSetNavigationBarColor(ContextCompat.getColor(activity, color))
+
+    @JvmStatic
+    fun setNavigationBarColor(dialog: Dialog, @ColorRes color: Int) =
+        dialog.window?.edgeSetNavigationBarColor(ContextCompat.getColor(dialog.context, color))
 
     fun Activity.edgeSetNavigationBarColor(@ColorRes color: Int) =
         this.window.edgeSetNavigationBarColor(ContextCompat.getColor(this, color))
 
+    fun Dialog.edgeSetNavigationBarColor(@ColorRes color: Int) =
+        this.window?.edgeSetNavigationBarColor(ContextCompat.getColor(this.context, color))
+
     fun Activity.edgeSetNavigationBarColorInt(@ColorInt colorInt: Int) =
         this.window.edgeSetNavigationBarColor(colorInt)
+
+    fun Dialog.edgeSetNavigationBarColorInt(@ColorInt colorInt: Int) =
+        this.window?.edgeSetNavigationBarColor(colorInt)
 
     private fun Window.edgeSetNavigationBarColor(@ColorInt colorInt: Int) {
         this.navigationBarColor = colorInt
@@ -225,14 +272,28 @@ object EdgeUtils {
         activity.window.edgeSetSystemBarColor(color)
 
     @JvmStatic
+    fun setSystemBarColorInt(dialog: Dialog, @ColorInt color: Int) =
+        dialog.window?.edgeSetSystemBarColor(color)
+
+    @JvmStatic
     fun setSystemBarColor(activity: Activity, @ColorRes color: Int) =
         activity.window.edgeSetSystemBarColor(ContextCompat.getColor(activity, color))
+
+    @JvmStatic
+    fun setSystemBarColor(dialog: Dialog, @ColorRes color: Int) =
+        dialog.window?.edgeSetSystemBarColor(ContextCompat.getColor(dialog.context, color))
 
     fun Activity.edgeSetSystemBarColor(@ColorRes color: Int) =
         this.window.edgeSetSystemBarColor(ContextCompat.getColor(this, color))
 
+    fun Dialog.edgeSetSystemBarColor(@ColorRes color: Int) =
+        this.window?.edgeSetSystemBarColor(ContextCompat.getColor(this.context, color))
+
     fun Activity.edgeSetSystemBarColorInt(@ColorInt colorInt: Int) =
         this.window.edgeSetSystemBarColor(colorInt)
+
+    fun Dialog.edgeSetSystemBarColorInt(@ColorInt colorInt: Int) =
+        this.window?.edgeSetSystemBarColor(colorInt)
 
     private fun Window.edgeSetSystemBarColor(@ColorInt colorInt: Int) {
         this.statusBarColor = colorInt
@@ -245,40 +306,61 @@ object EdgeUtils {
     fun setSystemBarLight(activity: Activity, isLight: Boolean) =
         setSystemBarLight(activity.window, isLight)
 
-    fun Activity.edgeSetSystemBarLight(isLight: Boolean) =
-        setSystemBarLight(this.window, isLight)
+    @JvmStatic
+    fun setSystemBarLight(dialog: Dialog, isLight: Boolean) = dialog.window?.let {
+        setSystemBarLight(it, isLight)
+    }
+
+    fun Activity.edgeSetSystemBarLight(isLight: Boolean) = setSystemBarLight(this.window, isLight)
+
+    fun Dialog.edgeSetSystemBarLight(isLight: Boolean) = window?.let {
+        setSystemBarLight(it, isLight)
+    }
 
     /** Navigation bar front color*/
     @JvmStatic
     fun setNavigationBarLight(activity: Activity, isLight: Boolean) =
         setNavigationBarLight(activity.window, isLight)
 
+    @JvmStatic
+    fun setNavigationBarLight(dialog: Dialog, isLight: Boolean) = dialog.window?.let {
+        setNavigationBarLight(it, isLight)
+    }
+
     fun Activity.edgeSetNavigationBarLight(isLight: Boolean) =
         setNavigationBarLight(window, isLight)
+
+    fun Dialog.edgeSetNavigationBarLight(isLight: Boolean) = window?.let {
+        setNavigationBarLight(it, isLight)
+    }
 
     /** Status bar front color*/
     @JvmStatic
     fun setStatusBarLight(activity: Activity, isLight: Boolean) =
         setStatusBarLight(activity.window, isLight)
 
-    fun Activity.edgeSetStatusBarLight(isLight: Boolean) =
-        setStatusBarLight(this.window, isLight)
+    @JvmStatic
+    fun setStatusBarLight(dialog: Dialog, isLight: Boolean) = dialog.window?.let {
+        setStatusBarLight(it, isLight)
+    }
+
+
+    fun Activity.edgeSetStatusBarLight(isLight: Boolean) = setStatusBarLight(this.window, isLight)
+    fun Dialog.edgeSetStatusBarLight(isLight: Boolean) = window?.let {
+        setStatusBarLight(it, isLight)
+    }
 
     /** judge is Status bar is light*/
     @JvmStatic
-    fun isStatusBarLight(activity: Activity) =
-        isAppearanceLightStatusBars(activity.window)
+    fun isStatusBarLight(activity: Activity) = isAppearanceLightStatusBars(activity.window)
 
-    fun Activity.edgeIsStatusBarLight() =
-        isAppearanceLightStatusBars(this.window)
+    fun Activity.edgeIsStatusBarLight() = isAppearanceLightStatusBars(this.window)
 
     /** judge is Navigation bar is light*/
     @JvmStatic
-    fun isNavigationBarLight(activity: Activity) =
-        isAppearanceLightNavigationBars(activity.window)
+    fun isNavigationBarLight(activity: Activity) = isAppearanceLightNavigationBars(activity.window)
 
-    fun Activity.edgeIsNavigationBarLight() =
-        isAppearanceLightNavigationBars(this.window)
+    fun Activity.edgeIsNavigationBarLight() = isAppearanceLightNavigationBars(this.window)
 
 }
 
