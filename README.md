@@ -2,6 +2,10 @@
 EdgeUtils is an immersive scafodd base on androidx.core's WindowInsets
 [![](https://jitpack.io/v/JailedBird/EdgeUtils.svg)](https://jitpack.io/#JailedBird/EdgeUtils)
 
+导入方式 
+```
+implementation 'com.github.JailedBird:EdgeUtils:0.0.1'
+```
 ## 前言介绍
 
 随着全面屏的诞生，在手机厂商和屏幕制造商不遗余力地推动下，全面屏快速得到整个产业链的认可，如今(2022/12)，全面屏已经成为智能手机屏幕的标配。
