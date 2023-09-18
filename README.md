@@ -364,11 +364,11 @@ private fun setWindowEdgeToEdge(window: Window) {
 
 ### 4-4 、 禁止View的多次监听
 
-### 一个View只能绑定一次ApplyWindowInset的监听，多次绑定可能会导致之前的失效；出现奇怪问题！！！
+一个View只能绑定一次ApplyWindowInset的监听，多次绑定可能会导致之前的失效或者出现奇怪问题！！！
 
+### 
 
-
-## 参考文献
+## 5、 参考资料
 
 - [Android Detail:Window 篇-WindowInsets & fitsSystemWindow](https://juejin.cn/post/7038422081528135687)
 - [官方文档，必看！ Lay out your app within window insets](https://developer.android.com/develop/ui/views/layout/insets)
