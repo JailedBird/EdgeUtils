@@ -43,7 +43,7 @@
 
 屏幕上除了开发者 app 绘制的内容还有系统的 Insets（插入物），Insets 区域负责描述屏幕的哪些部分会与**系统 UI 相交**。如 `Starus bar` 或 `Navigation bar`：
 
-![image-20221129175321255](README.assets/image-20221129175321255.png)
+![image-20221129175321255](../README.assets/image-20221129175321255.png)
 
 **Figure1**
 
@@ -71,7 +71,7 @@
 
 在源码中，Insets 对象拥有 4 个 int 值，用于描述矩形四个边的偏移：
 
-![image-20221129175333297](README.assets/image-20221129175333297.png)
+![image-20221129175333297](../README.assets/image-20221129175333297.png)
 
 **Figure2**
 

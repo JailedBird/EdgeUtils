@@ -153,7 +153,7 @@ fun View.applySystemWindowInsetsPadding(
 
 如何彻底理解Edge to edge的思想呢？ 
 
-或许你需要[官方文章](https://developer.android.com/develop/ui/views/layout/insets) , 也可以看的我写的翻译文章[doc1](./doc1.md)😘
+或许你需要[官方文章](https://developer.android.com/develop/ui/views/layout/insets) , 也可以看的我写的翻译文章[doc1](./doc/doc1.md)😘
 
 
 
@@ -161,13 +161,13 @@ fun View.applySystemWindowInsetsPadding(
 
 了解Edge to edge原理后，你或许会好奇他是怎么实现的？ 
 
-或许你需要[Flywith24大佬的文章](https://juejin.cn/post/7038422081528135687) , 也可看缩略文章[doc2](./doc3.md)😘
+或许你需要[Flywith24大佬的文章](https://juejin.cn/post/7038422081528135687) , 也可看缩略文章[doc2](./doc/doc3.md)😘
 
 
 
 ### 3-3 其他杂项记录
 
-请看[doc3](./doc3.md) ， 东西多但比较杂没整理😘
+请看[doc3](./doc/doc3.md) ， 东西多但比较杂没整理😘
 
 
 

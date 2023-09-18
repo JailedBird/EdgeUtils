@@ -6,7 +6,7 @@
 
 
 
-![figure1](README.assets/1669552233097-eacf0003-1ede-4035-a24e-ace16bfbe400.gif)
+![figure1](../README.assets/1669552233097-eacf0003-1ede-4035-a24e-ace16bfbe400.gif)
 
 **Figure 3: System bars with edge-to-edge**
 
@@ -43,13 +43,13 @@ override fun onCreate(savedInstanceState: Bundle?) {
 
 - 手势导航模式：系统导航条颜色根据其后面的内容改变颜色。在下面的示例中，如果导航栏中的控点高于浅色内容，则导航栏中的控点将更改为深色，反之亦然***（不要试图通过Api去改动这个颜色 一是不能、二是没必要）***
 
-  ![img](README.assets/1669552322801-28c2b649-8f44-4865-8876-7827789638fc.gif)
+  ![img](../README.assets/1669552322801-28c2b649-8f44-4865-8876-7827789638fc.gif)
 
   **Figure 4**: Handle color changes in gesture navigation mode
 
 - 按钮模式：系统在系统栏（对于 API 级别 29 或更高）或透明系统栏（对于 API 级别 28 或更低）后面应用半透明遮盖布局（scrim）***（将状态栏颜色设置为任意非透明颜色即可干掉这个半透明遮盖布局)***
 
-  ![img](README.assets/1669552031219-95a0604b-dfde-47a2-b8a8-0bcc64e76c0f.png)
+  ![img](../README.assets/1669552031219-95a0604b-dfde-47a2-b8a8-0bcc64e76c0f.png)
 
    **Figure 5**: Translucent scrim behind system bars
 
@@ -57,7 +57,7 @@ override fun onCreate(savedInstanceState: Bundle?) {
 
 - 状态栏内容颜色：此时状态栏透明， 应用内容会呈现在状态栏位置， 产生视觉冲突
 
-  ![image-20221129172102121](README.assets/image-20221129172102121.png)
+  ![image-20221129172102121](../README.assets/image-20221129172102121.png)
 
   **Figure 6**: Status bar content color
 
@@ -150,7 +150,7 @@ System bar insets是最常用的insets类型，单纯的表示视觉上的交叉
 
 例如，以下示例中的浮动操作按钮 （FAB） 被导航栏部分遮挡。
 
-![img](README.assets/1669552672334-d80fdb72-69c3-47c0-941f-060df49e1a48.png)
+![img](../README.assets/1669552672334-d80fdb72-69c3-47c0-941f-060df49e1a48.png)
 
 **Figure 7**: Navigation bar after edge-to-edge is implemented, with a visual overlap of the FAB
 
@@ -160,12 +160,12 @@ System bar insets是最常用的insets类型，单纯的表示视觉上的交叉
 
 若要避免在手势模式或按钮模式下由edge-to-edge引起的这种视觉重叠，可以通过将  [getInsets(int)](https://developer.android.com/reference/androidx/core/view/WindowInsetsCompat#getInsets(int)) 与 [WindowInsetsCompat.Type.systemBars()](https://developer.android.com/reference/androidx/core/view/WindowInsetsCompat.Type#systemBars()) 一起使用来增加视图的边距。将此解决方案应用于图 6 中所示的示例将消除按钮模式和手势导航模式的视觉重叠，如Figure 7和Figure 7所示
 
-![img](README.assets/1669552694064-a93cfe12-8a70-42e8-b6cc-f7c163b5018f.png)
+![img](../README.assets/1669552694064-a93cfe12-8a70-42e8-b6cc-f7c163b5018f.png)
 
 **Figure 8**: Resolving visual overlap for button modes
 
 
- ![img](README.assets/1669552704116-08859403-6e34-4c48-87f6-f3efd513bae5.png)
+ ![img](../README.assets/1669552704116-08859403-6e34-4c48-87f6-f3efd513bae5.png)
 
 **Figure 9**: Resolving visual overlap for gesture navigation mode (right)
 
@@ -199,7 +199,7 @@ ViewCompat.setOnApplyWindowInsetsListener(view) { view, windowInsets ->
 
 System gesture insets表示窗口区域如下图的橙色所示，其中系统手势优先于您的app
 
- <img src="README.assets/1669552744835-efcf26b6-e9d7-4068-8c87-11e6f1910f31.png" alt="img" style="zoom:50%;" />
+ <img src="../README.assets/1669552744835-efcf26b6-e9d7-4068-8c87-11e6f1910f31.png" alt="img" style="zoom:50%;" />
 
 **Figure 10**: System gesture insets
 
@@ -209,7 +209,7 @@ System gesture insets表示窗口区域如下图的橙色所示，其中系统�
 
 在 Android 10 或更高版本上，系统手势insets包含用于主页手势的底部insets，以及用于后退手势的左右insets：
 
-<img src="README.assets/1669552777855-78891610-31ff-499a-833b-d6cd45456f98.png" alt="img" style="zoom:50%;" />
+<img src="../README.assets/1669552777855-78891610-31ff-499a-833b-d6cd45456f98.png" alt="img" style="zoom:50%;" />
 
 **Figure 11**: System gesture inset measurements
 
@@ -235,7 +235,7 @@ ViewCompat.setOnApplyWindowInsetsListener(view) { view, windowInsets ->
 某些页面最好使用无状态栏、无导航栏的全屏去展示。如一些示例包括视频、游戏、图像库、书籍和幻灯片, 这称为沉浸式模式。这些页面通过全屏内容更深入地吸引用户。
 
 
- ![img](README.assets/1669552853791-f7c37465-6213-4b44-abd2-bb555709c440.png)
+ ![img](../README.assets/1669552853791-f7c37465-6213-4b44-abd2-bb555709c440.png)
 
 **Figure12**: immersive mode sample 
 

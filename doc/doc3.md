@@ -357,7 +357,7 @@ private fun setWindowEdgeToEdge(window: Window) {
 
 - UI预览可以看到是这个样子的：
 
-![image-20221124102655144](README.assets/image-20221124102655144.png)
+![image-20221124102655144](../README.assets/image-20221124102655144.png)
 
 
 
@@ -378,7 +378,7 @@ private fun setWindowEdgeToEdge(window: Window) {
 
 - 可以看到, Toolbar的总高度是不变的，内容高度下移20dp，这显然是不合理的；实际运行时动态为ToolBar添加statusbar的paddingTop肯定也会导致这样的问题
 
-![image-20221124103232396](README.assets/image-20221124103232396.png)
+![image-20221124103232396](../README.assets/image-20221124103232396.png)
 
 
 
@@ -411,7 +411,7 @@ private fun setWindowEdgeToEdge(window: Window) {
 
 如下：
 
-![image-20221124103542651](README.assets/image-20221124103542651.png)
+![image-20221124103542651](../README.assets/image-20221124103542651.png)
 
 
 
@@ -455,7 +455,7 @@ WindowCompat.getInsetsController(this, this.decorView)?.let {
 
 具体表现下图这个样子：
 
-![image-20221125143449641](README.assets/image-20221125143449641.png)
+![image-20221125143449641](../README.assets/image-20221125143449641.png)
 
 解决方案如下 :point_down:   [How to remove top status bar black background](https://stackoverflow.com/a/72773422/15859474)
 
