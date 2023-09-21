@@ -6,6 +6,10 @@ EdgeUtils是基于androidx.core的Android沉浸式框架 :package:
 
 接入方式： 
 ```
+maven { url 'https://jitpack.io' }
+```
+
+```
 implementation 'com.github.JailedBird:EdgeUtils:0.0.1'
 ```
 
