@@ -2,7 +2,7 @@
 
 ## 1、 接入方式
 
-EdgeUtils是基于androidx.core的Android沉浸式框架 :package:
+EdgeUtils是基于androidx.core，对[edge to edge](https://developer.android.com/develop/ui/views/layout/insets)沉浸式方案封装 :package:
 
 接入方式： 
 - 添加jitpack仓库
