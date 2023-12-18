@@ -1,5 +1,7 @@
 # [EdgeUtils](https://github.com/JailedBird/EdgeUtils)
 
+[![GitHub stars](https://img.shields.io/github/stars/JailedBird/EdgeUtils.svg)](https://github.com/JailedBird/EdgeUtils/stargazers) [![GitHub forks](https://img.shields.io/github/forks/JailedBird/EdgeUtils.svg)](https://github.com/JailedBird/EdgeUtils/network/members) [![GitHub issues](https://img.shields.io/github/issues/JailedBird/EdgeUtils.svg)](https://github.com/JailedBird/EdgeUtils/issues) [![GitHub license](https://img.shields.io/github/license/JailedBird/EdgeUtils.svg)](https://github.com/JailedBird/EdgeUtils/blob/master/LICENSE)
+
 ## 1、 接入方式
 
 EdgeUtils是基于androidx.core，对[edge to edge](https://developer.android.com/develop/ui/views/layout/insets)沉浸式方案封装 :package:
