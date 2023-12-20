@@ -1,6 +1,7 @@
 # [EdgeUtils](https://github.com/JailedBird/EdgeUtils)
 
-[![GitHub stars](https://img.shields.io/github/stars/JailedBird/EdgeUtils.svg)](https://github.com/JailedBird/EdgeUtils/stargazers) [![GitHub forks](https://img.shields.io/github/forks/JailedBird/EdgeUtils.svg)](https://github.com/JailedBird/EdgeUtils/network/members) [![GitHub issues](https://img.shields.io/github/issues/JailedBird/EdgeUtils.svg)](https://github.com/JailedBird/EdgeUtils/issues) [![GitHub license](https://img.shields.io/github/license/JailedBird/EdgeUtils.svg)](https://github.com/JailedBird/EdgeUtils/blob/master/LICENSE)
+[![GitHub stars](https://img.shields.io/github/stars/JailedBird/EdgeUtils.svg)](https://github.com/JailedBird/EdgeUtils/stargazers) [![GitHub forks](https://img.shields.io/github/forks/JailedBird/EdgeUtils.svg)](https://github.com/JailedBird/EdgeUtils/network/members) [![GitHub issues](https://img.shields.io/github/issues/JailedBird/EdgeUtils.svg)](https://github.com/JailedBird/EdgeUtils/issues) [![](https://jitpack.io/v/JailedBird/EdgeUtils.svg)](https://jitpack.io/#JailedBird/EdgeUtils)
+
 
 ## 1、 接入方式
 
