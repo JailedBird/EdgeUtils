@@ -14,7 +14,7 @@ maven { url 'https://jitpack.io' }
 ```
 - 添加依赖
 ```
-implementation 'com.github.JailedBird:EdgeUtils:0.0.1'
+implementation 'com.github.JailedBird:EdgeUtils:1.0.0'
 ```
 
 ## 2、 使用方式
